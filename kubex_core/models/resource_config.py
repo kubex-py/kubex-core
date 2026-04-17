@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from enum import Enum
 from functools import cached_property
-from typing import TYPE_CHECKING, Any, Generic, Literal, Self, Type
+from typing import TYPE_CHECKING, Any, Generic, Literal, Self, Type, cast
 
 from pydantic import create_model
 
-from kubex.models.typing import ResourceType
+from kubex_core.models.typing import ResourceType
 
 if TYPE_CHECKING:
-    from kubex.models.list_entity import ListEntity
+    from kubex_core.models.list_entity import ListEntity
 
 
 class Scope(Enum):
@@ -131,8 +131,8 @@ class ResourceConfig(Generic[ResourceType]):
 def create_list_model(
     single_model: Type[ResourceType], resource_config: ResourceConfig[ResourceType]
 ) -> Type[ListEntity[ResourceType]]:
-    from kubex.models.list_entity import ListEntity
-    from kubex.models.metadata import ListMetadata
+    from kubex_core.models.list_entity import ListEntity
+    from kubex_core.models.metadata import ListMetadata
 
     kind = f"{resource_config.kind}List"
     list_model = create_model(
@@ -143,7 +143,9 @@ def create_list_model(
         items=(list[single_model], ...),  # type: ignore[valid-type]
         __base__=ListEntity[single_model],  # type: ignore[valid-type]
     )
-    return list_model
+    # pydantic.create_model's return type is `type[BaseModel]`; we know the
+    # __base__ narrows it to ListEntity[ResourceType], but mypy cannot prove it.
+    return cast("Type[ListEntity[ResourceType]]", list_model)
 
 
 def get_version_and_froup_from_api_version(api_version: str | None) -> tuple[str, str]:
