@@ -12,6 +12,8 @@ depends on a compatible range.
 
 ## [Unreleased]
 
+## [0.1.0-beta.6] - 2026-11-23
+
 ### Added
 
 - `kubex_core.models.admission`: `AdmissionReview`, `AdmissionRequest` and `AdmissionResponse`
@@ -86,7 +88,8 @@ First beta, released in lock-step with kubex 0.1.0-beta.1.
 First release: the base models and types shared by kubex and the generated `kubex-k8s-*`
 packages, split out of kubex.
 
-[unreleased]: https://github.com/kubex-py/kubex-core/compare/v0.1.0-beta.5...HEAD
+[unreleased]: https://github.com/kubex-py/kubex-core/compare/v0.1.0-beta.6...HEAD
+[0.1.0-beta.6]: https://github.com/kubex-py/kubex-core/compare/v0.1.0-beta.5...v0.1.0-beta.6
 [0.1.0-beta.5]: https://github.com/kubex-py/kubex-core/compare/v0.1.0-beta.4...v0.1.0-beta.5
 [0.1.0-beta.4]: https://github.com/kubex-py/kubex-core/compare/v0.1.0-beta.3...v0.1.0-beta.4
 [0.1.0-beta.3]: https://github.com/kubex-py/kubex-core/compare/v0.1.0-beta.2...v0.1.0-beta.3
