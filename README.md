@@ -1,6 +1,6 @@
 # kubex-core
 
-Shared foundation types for [Kubex](https://github.com/codemageddon/kubex) and its generated Kubernetes resource packages (`kubex-k8s-*`).
+Shared foundation types for [Kubex](https://github.com/kubex-py/kubex) and its generated Kubernetes resource packages (`kubex-k8s-*`).
 
 Contains:
 
