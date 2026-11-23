@@ -25,7 +25,7 @@ was `packages/kubex-core/kubex_core/`, and before that `kubex/models/`).
 ## Releases
 
 Own semver. Bump `version` in `pyproject.toml`, update `CHANGELOG.md`, merge, then push a
-`vX.Y.Z` tag on `main`: `publish.yml` checks the tag against the built version and publishes
+`vX.Y.Z` tag on `main`: `publish.yaml` checks the tag against the built version and publishes
 to PyPI. Every pull request from this repository publishes a `.devN` build to TestPyPI.
 
 CI and the build go through the reusable workflows in kubex-py/.github.

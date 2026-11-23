@@ -3,7 +3,7 @@
 # TestPyPI trusted publisher, at https://test.pypi.org/manage/project/kubex-core/settings/publishing/:
 #   Owner:         kubex-py
 #   Repository:    kubex-core
-#   Workflow name: publish-test.yml
+#   Workflow name: publish-test.yaml
 #   Environment:   test-pypi
 
 name: Publish to TestPyPI

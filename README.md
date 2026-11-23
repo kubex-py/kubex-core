@@ -1,6 +1,6 @@
 # kubex-core
 
-[![CI](https://github.com/kubex-py/kubex-core/actions/workflows/ci.yml/badge.svg)](https://github.com/kubex-py/kubex-core/actions/workflows/ci.yml)
+[![CI](https://github.com/kubex-py/kubex-core/actions/workflows/ci.yaml/badge.svg)](https://github.com/kubex-py/kubex-core/actions/workflows/ci.yaml)
 [![PyPI](https://img.shields.io/pypi/v/kubex-core)](https://pypi.org/project/kubex-core/)
 
 Shared foundation types for [kubex](https://github.com/kubex-py/kubex) and its generated Kubernetes

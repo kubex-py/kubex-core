@@ -3,7 +3,7 @@
 # PyPI trusted publisher, at https://pypi.org/manage/project/kubex-core/settings/publishing/:
 #   Owner:         kubex-py
 #   Repository:    kubex-core
-#   Workflow name: publish.yml
+#   Workflow name: publish.yaml
 #   Environment:   pypi
 
 name: Publish to PyPI
