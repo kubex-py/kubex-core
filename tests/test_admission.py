@@ -9,7 +9,6 @@ from typing import Any, assert_type
 import pytest
 from pydantic import ValidationError
 
-from kubex.core.patch import JsonPatch
 from kubex.k8s.v1_35.core.v1.pod import Pod
 from kubex_core.models.admission import AdmissionRequest, AdmissionReview
 
@@ -225,7 +224,9 @@ def test_allow_with_warnings_and_audit_annotations() -> None:
 
 @pytest.mark.parametrize("as_bytes", [False, True])
 def test_allow_with_patch(as_bytes: bool) -> None:
-    patch_text = JsonPatch().add("/metadata/labels", {"team": "a"}).serialize()
+    patch_text = json.dumps(
+        [{"op": "add", "path": "/metadata/labels", "value": {"team": "a"}}]
+    )
     patch = patch_text.encode() if as_bytes else patch_text
     response = _request().allow(patch=patch)
     assert response.patch == patch_text.encode()

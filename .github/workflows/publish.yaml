@@ -1,0 +1,36 @@
+# Publishes to PyPI when a release tag is pushed.
+#
+# PyPI trusted publisher, at https://pypi.org/manage/project/kubex-core/settings/publishing/:
+#   Owner:         kubex-py
+#   Repository:    kubex-core
+#   Workflow name: publish.yaml
+#   Environment:   pypi
+
+name: Publish to PyPI
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    uses: kubex-py/.github/.github/workflows/python-build.yml@main
+    with:
+      check-tag: true
+
+  # PyPI trusted publishing does not work from a reusable workflow, so this job stays here.
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

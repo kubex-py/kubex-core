@@ -1,6 +1,6 @@
 [project]
 name = "kubex-core"
-version = "0.1.0-beta.5"
+version = "0.1.0-beta.6"
 description = "Core model types shared by Kubex and its generated resource packages"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -27,6 +27,24 @@ classifiers = [
   "Programming Language :: Python :: Free Threading :: 2 - Beta",
 ]
 
+[project.urls]
+Homepage = "https://github.com/kubex-py/kubex-core"
+Repository = "https://github.com/kubex-py/kubex-core.git"
+Issues = "https://github.com/kubex-py/kubex-core/issues"
+Changelog = "https://github.com/kubex-py/kubex-core/blob/main/CHANGELOG.md"
+Documentation = "https://kubex.codemageddon.me/"
+
+[dependency-groups]
+dev = [
+    # real generated models for the tests; it depends on kubex-core, which
+    # resolves to this project
+    "kubex-k8s-1-35",
+    "mypy==2.4.0",
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.3",
+    "ruff==0.15.22",
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -37,11 +55,14 @@ only-include = ["kubex_core"]
 [tool.hatch.build.targets.wheel]
 packages = ["kubex_core"]
 
-# The root `mypy .` excludes `packages/` and only reads kubex_core as an
-# installed package, so it never reports errors here. CI checks this package
-# separately: `uv run --directory packages/kubex-core mypy kubex_core`.
 [tool.mypy]
 strict = true
 namespace_packages = true
 explicit_package_bases = true
 plugins = ["pydantic.mypy"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["kubex_core"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
