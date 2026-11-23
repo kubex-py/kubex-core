@@ -1,0 +1,43 @@
+# Publishes a .dev build of every pull request from this repository to TestPyPI.
+#
+# TestPyPI trusted publisher, at https://test.pypi.org/manage/project/kubex-core/settings/publishing/:
+#   Owner:         kubex-py
+#   Repository:    kubex-core
+#   Workflow name: publish-test.yml
+#   Environment:   test-pypi
+
+name: Publish to TestPyPI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # Pull requests from forks get no OIDC token, so they can't publish.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    uses: kubex-py/.github/.github/workflows/python-build.yml@main
+    with:
+      dev-version-file: pyproject.toml
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: test-pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+      - name: Summary
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: echo "Published $VERSION to TestPyPI" >> "$GITHUB_STEP_SUMMARY"
